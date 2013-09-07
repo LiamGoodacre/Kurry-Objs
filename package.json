@@ -1,0 +1,23 @@
+{
+  "name": "kurry-objs",
+  "description": "A small collection of functions for dealing with JavaScript objects",
+  "main": "./objs.js",
+  "author": "Liam Goodacre",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LiamGoodacre/Kurry-Objs"
+  },
+  "bugs": {
+    "url": "https://github.com/LiamGoodacre/Kurry-Objs/issues"
+  },
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://github.com/LiamGoodacre/Kurry-Objs/raw/master/LICENSE"
+  }],
+  "dependencies": {
+    "kurry": "0.0.x",
+    "kurry-arrays": "0.0.x",
+    "kurry-fns": "0.0.x"
+  }
+}
