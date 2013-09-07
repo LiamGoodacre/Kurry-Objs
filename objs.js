@@ -31,10 +31,26 @@
     if (!Arrays) throw new Error('Kurry-Arrays not found.')
 
     var fn = Kurry.autopoly
+    var Objs = {}
+
+    Objs.isObject = function (o) {
+      return {}.toString.call(o) === '[object Object]'
+    }
+
+    Objs.isAssoc = function (o) {
+      return Objs.isObject(o) || Arrays.isArray(o)
+    }
+
+    //: String -> Object -> Bool
+    Objs.keyIn = fn(function (k, o) {
+      return !!(Objs.isAssoc(o) && k in o) })
+
+    //: Object -> String -> Bool
+    Objs.hasKey = Fns.flip(Objs.keyIn)
 
     //: String -> Object -> Error | ?
     Objs.get = fn(function (k, o) {
-      if (!o || !(k in o)) throw new Error('Key not found.')
+      if (!(Objs.keyIn(k, o))) throw new Error('Key not found.')
       return o[k] })
 
     //: String -> Object -> Error | Void | ?
@@ -43,7 +59,7 @@
 
     //: String -> Object -> [?]
     Objs.maybeGet = fn(function (k, o) {
-      if (!o || !(k in o)) []
+      if (!(Objs.keyIn(k, o))) []
       return [o[k]] })
 
     //: Object -> String -> Error | ?
@@ -54,13 +70,6 @@
 
     //: Object -> String -> [?]
     Objs.maybeLookup = Fns.flip(Objs.maybeGet)
-
-    //: String -> Object -> Bool
-    Objs.keyIn = fn(function (k, o) {
-      return !!(o && k in o) })
-
-    //: Object -> String -> Bool
-    Objs.hasKey = Fns.flip(Objs.keyIn)
 
     //: Object -> [String]
     Objs.keys = Object.keys
